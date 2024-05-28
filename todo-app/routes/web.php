@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +27,14 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home')->middleware('auth');
+Route::middleware('auth')->group(function() {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+
+
+    Route::resource('/task','App\Http\Controllers\TaskController');
+    // Route::resource('task', TaskController::class);
+
+});
+
