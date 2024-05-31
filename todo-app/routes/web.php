@@ -28,9 +28,14 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function() {
+    // {{ URL::asset('assets/images/favicon.ico') }}
     Route::get('/home', function () {
         return view('home');
     })->name('home');
+
+    Route::get('/admin', function () {
+        return view('admin');
+    })->name('admin');
 
 
     Route::resource('/task','App\Http\Controllers\TaskController');
